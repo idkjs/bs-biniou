@@ -6,7 +6,7 @@
             "dir": "src"
         },
         {
-            "dir": "esy-format"
+            "dir": "easy-format"
         }
     ],
     "namespace": false,
