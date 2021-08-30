@@ -1,0 +1,12 @@
+(executable
+ (modes byte exe)
+ (name test_biniou)
+ (flags -safe-string)
+ (libraries biniou unix))
+
+(rule
+ (alias runtest)
+ (deps
+  (:< test_biniou.exe))
+ (action
+  (run %{<})))
