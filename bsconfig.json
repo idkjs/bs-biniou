@@ -1,11 +1,14 @@
 {
-    "name": "idkjs/bs-biniou",
+    "name": "bs-biniou",
     "version": "0.0.1",
-    "sources":[ {
-        "dir": "src"
-    },{
-        "dir": "esy-format"
-    }],
+    "sources": [
+        {
+            "dir": "src"
+        },
+        {
+            "dir": "esy-format"
+        }
+    ],
     "namespace": false,
     "suffix": ".bs.js"
 }
