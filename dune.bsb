@@ -1,0 +1,208 @@
+;;;;{BSB GENERATED: NO EDIT
+(subdir ./easy-format
+(rule
+(targets  easy_format.ast)
+ (deps (:inputs  easy_format.re) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  easy_format.iast)
+ (deps (:inputs  easy_format.rei) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  easy_format.cmi easy_format.cmti)
+ (deps (:inputs  easy_format.iast)  (:ast_deps .././easy-format/easy_format.ast .././easy-format/easy_format.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./easy-format %{ast_deps}) (run bsc -bs-re-out -I ../src -I .    -w a -o easy_format.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  easy_format.cmj easy_format.cmt easy_format.bs.js)
+ (deps (:inputs  easy_format.ast)  easy_format.cmi (:ast_deps .././easy-format/easy_format.ast .././easy-format/easy_format.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./easy-format %{ast_deps}) (run bsc -bs-read-cmi -bs-re-out -I ../src -I .    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./easy-format:.bs.js -o easy_format.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ 
+(alias (name bsb_world)(deps  easy_format.bs.js)
+(enabled_if (= %{ocaml_version} "4.12.0"))))
+(subdir ./src
+(rule
+(targets  bi_io.ast)
+ (deps (:inputs  bi_io.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_io.iast)
+ (deps (:inputs  bi_io.mli) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_io.cmi bi_io.cmti)
+ (deps (:inputs  bi_io.iast)  (:ast_deps .././src/bi_io.ast .././src/bi_io.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -I . -I ../easy-format    -w a -o bi_io.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_io.cmj bi_io.cmt bi_io.bs.js)
+ (deps (:inputs  bi_io.ast)  bi_io.cmi (:ast_deps .././src/bi_io.ast .././src/bi_io.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -I . -I ../easy-format    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./src:.bs.js -o bi_io.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_dump.ast)
+ (deps (:inputs  bi_dump.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_dump.cmj bi_dump.cmi bi_dump.cmt bi_dump.bs.js)
+ (deps (:inputs  bi_dump.ast)  (:ast_deps .././src/bi_dump.ast ) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -I . -I ../easy-format    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./src:.bs.js -o bi_dump.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_util.ast)
+ (deps (:inputs  bi_util.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_util.iast)
+ (deps (:inputs  bi_util.mli) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_util.cmi bi_util.cmti)
+ (deps (:inputs  bi_util.iast)  (:ast_deps .././src/bi_util.ast .././src/bi_util.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -I . -I ../easy-format    -w a -o bi_util.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_util.cmj bi_util.cmt bi_util.bs.js)
+ (deps (:inputs  bi_util.ast)  bi_util.cmi (:ast_deps .././src/bi_util.ast .././src/bi_util.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -I . -I ../easy-format    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./src:.bs.js -o bi_util.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_vint.ast)
+ (deps (:inputs  bi_vint.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_vint.iast)
+ (deps (:inputs  bi_vint.mli) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_vint.cmi bi_vint.cmti)
+ (deps (:inputs  bi_vint.iast)  (:ast_deps .././src/bi_vint.ast .././src/bi_vint.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -I . -I ../easy-format    -w a -o bi_vint.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_vint.cmj bi_vint.cmt bi_vint.bs.js)
+ (deps (:inputs  bi_vint.ast)  bi_vint.cmi (:ast_deps .././src/bi_vint.ast .././src/bi_vint.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -I . -I ../easy-format    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./src:.bs.js -o bi_vint.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_inbuf.ast)
+ (deps (:inputs  bi_inbuf.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_inbuf.iast)
+ (deps (:inputs  bi_inbuf.mli) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_inbuf.cmi bi_inbuf.cmti)
+ (deps (:inputs  bi_inbuf.iast)  (:ast_deps .././src/bi_inbuf.ast .././src/bi_inbuf.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -I . -I ../easy-format    -w a -o bi_inbuf.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_inbuf.cmj bi_inbuf.cmt bi_inbuf.bs.js)
+ (deps (:inputs  bi_inbuf.ast)  bi_inbuf.cmi (:ast_deps .././src/bi_inbuf.ast .././src/bi_inbuf.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -I . -I ../easy-format    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./src:.bs.js -o bi_inbuf.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_share.ast)
+ (deps (:inputs  bi_share.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_share.iast)
+ (deps (:inputs  bi_share.mli) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_share.cmi bi_share.cmti)
+ (deps (:inputs  bi_share.iast)  (:ast_deps .././src/bi_share.ast .././src/bi_share.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -I . -I ../easy-format    -w a -o bi_share.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_share.cmj bi_share.cmt bi_share.bs.js)
+ (deps (:inputs  bi_share.ast)  bi_share.cmi (:ast_deps .././src/bi_share.ast .././src/bi_share.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -I . -I ../easy-format    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./src:.bs.js -o bi_share.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_outbuf.ast)
+ (deps (:inputs  bi_outbuf.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_outbuf.cmj bi_outbuf.cmi bi_outbuf.cmt bi_outbuf.bs.js)
+ (deps (:inputs  bi_outbuf.ast)  (:ast_deps .././src/bi_outbuf.ast ) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -I . -I ../easy-format    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./src:.bs.js -o bi_outbuf.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_stream.ast)
+ (deps (:inputs  bi_stream.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_stream.iast)
+ (deps (:inputs  bi_stream.mli) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_stream.cmi bi_stream.cmti)
+ (deps (:inputs  bi_stream.iast)  (:ast_deps .././src/bi_stream.ast .././src/bi_stream.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -I . -I ../easy-format    -w a -o bi_stream.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  bi_stream.cmj bi_stream.cmt bi_stream.bs.js)
+ (deps (:inputs  bi_stream.ast)  bi_stream.cmi (:ast_deps .././src/bi_stream.ast .././src/bi_stream.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/bs-biniou -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -I . -I ../easy-format    -w a -bs-package-name bs-biniou -bs-package-output commonjs:./src:.bs.js -o bi_stream.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ 
+(alias (name bsb_world)(deps  bi_stream.bs.js bi_outbuf.bs.js bi_share.bs.js bi_inbuf.bs.js bi_vint.bs.js bi_util.bs.js bi_dump.bs.js bi_io.bs.js)
+(enabled_if (= %{ocaml_version} "4.12.0"))))
+
+
+(subdir .melange.eobjs)
+
+(data_only_dirs node_modules .melange.eobjs)
+(alias (name bsb_world))
+;;;;BSB GENERATED: NO EDIT}

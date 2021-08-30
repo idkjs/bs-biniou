@@ -1,4 +1,4 @@
-open Format;
+// open Format;
 
 let rev_split = (l) => {
   let rec inner = (xs, ys) =>
@@ -82,7 +82,7 @@ type t =
   | Atom(string, atom_param)
   | List((string, string, string, list_param), list(t))
   | Label((t, label_param), t)
-  | Custom(formatter => unit);
+  | Custom(Format.formatter => unit);
 
 type escape = [
   | `None
@@ -181,16 +181,16 @@ module Pretty = {
      documentation of the Format module.
    */
   let set_escape = (fmt, escape) => {
-    let (print0, flush0) = pp_get_formatter_output_functions(fmt, ());
-    let tagf0 = pp_get_formatter_tag_functions(fmt, ());
+    let (print0, flush0) = Format.pp_get_formatter_output_functions(fmt, ());
+    let tagf0 = Format.pp_get_formatter_stag_functions(fmt, ());
     let is_tag = ref(false);
     let mot = (tag) => {
       is_tag := true;
-      tagf0.mark_open_tag(tag);
+      tagf0.mark_open_stag(tag);
     };
     let mct = (tag) => {
       is_tag := true;
-      tagf0.mark_close_tag(tag);
+      tagf0.mark_close_stag(tag);
     };
     let print = (s, p, n) =>
       if (is_tag^) {
@@ -199,9 +199,9 @@ module Pretty = {
       } else {
         escape(print0, s, p, n);
       };
-    let tagf = {...tagf0, mark_open_tag: mot, mark_close_tag: mct};
-    pp_set_formatter_output_functions(fmt, print, flush0);
-    pp_set_formatter_tag_functions(fmt, tagf);
+    let tagf = {...tagf0, mark_open_stag: mot, mark_close_stag: mct};
+    Format.pp_set_formatter_output_functions(fmt, print, flush0);
+    Format.pp_set_formatter_stag_functions(fmt, tagf);
   };
   let set_escape_string = (fmt, esc) => {
     let escape = (print, s, p, n) => {
@@ -213,7 +213,7 @@ module Pretty = {
   };
   let define_styles = (fmt, escape, l) => {
     if (l != []) {
-      pp_set_tags(fmt, true);
+      Format.pp_set_tags(fmt, true);
       let tbl1 = Hashtbl.create(2 * List.length(l));
       let tbl2 = Hashtbl.create(2 * List.length(l));
       List.iter(
@@ -225,14 +225,14 @@ module Pretty = {
       );
       let mark_open_tag = (style_name) =>
         try (Hashtbl.find(tbl1, style_name)) {
-        | Not_found => ""
+        | Not_found => Format.std_formatter ""
         };
-      let mark_close_tag = (style_name) =>
-        try (Hashtbl.find(tbl2, style_name)) {
-        | Not_found => ""
-        };
-      let tagf = {...pp_get_formatter_tag_functions(fmt, ()), mark_open_tag, mark_close_tag};
-      pp_set_formatter_tag_functions(fmt, tagf);
+      // let mark_close_tag = (style_name) =>
+      //   try (Hashtbl.find(tbl2, style_name)) {
+      //   | Not_found => ""
+      //   };
+      let tagf = {...Format.pp_get_formatter_stag_functions(fmt, ()), mark_open_tag, mark_close_stag};
+      pp_set_formatter_stag_functions(fmt, tagf);
     };
     switch escape {
     | `None => ()
@@ -536,7 +536,7 @@ module Pretty = {
     to_buffer(~escape?, ~styles?, buf, x);
     Buffer.contents(buf);
   };
-  let to_channel = (~escape=`None, ~styles=[], oc, x) => {
+  let to_channel = (~escape=`None, ~styles=[], ~oc:Stdlib.out_channel, x) => {
     let fmt = formatter_of_out_channel(oc);
     define_styles(fmt, escape, styles);
     to_formatter(fmt, x);
